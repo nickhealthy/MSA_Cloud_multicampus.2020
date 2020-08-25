@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %} <!-- base.html 상속 받음 -->
+
+
+{% block content %} <!-- 수정하고 싶은것만 수정 -->
+<script>
+    // function 자바 스크립트 함수
+    function post_remove(){
+        //{% url 'post_remove' pk=post.pk %}
+        var result = confirm('Post를 삭제하시겠습니까?')
+        if(result){
+          var remove_url = "{% url 'post_remove' pk=post.pk %}"
+            //document >> 객체, location >> 속성, href >> 속성, 뒤에 변수로 주소 값 받음
+            document.location.href = remove_url
+        }//if
+    }//post_remove
+</script>
+        <div class="post">
+            <!-- published_date 가 있으면 보이게하고 없으면 안보이게 한다. -->
+            {% if post.published_date %}
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+            {% endif %}
+
+            <!-- user.is_authenticated 로그인 되었을때 수정/삭제 기능이 보이게함 -->
+            {% if user.is_authenticated %}
+                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <!-- javascript 쪽에 선언함 -->
+                <a class="btn btn-default" href="#" onclick="post_remove()">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            {% endif %}
+
+            <h2>{{ post.title|title }}</h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+<hr>
+<!-- link 인데 버튼처럼 보이게 하려면 부트스트랩에서 제공하는 클래스 속성을 써준다. >> class="btn btn-default" -->
+<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">
+            {{comment.created_date}}
+
+            {% if not comment.approved_comment %}
+            <!-- pk는 urls.py >> <int:pk> / views.py >> (pk=pk) 참고 -->
+                <a class="btn btn-default"
+                   href="{% url 'comment_remove' pk=comment.pk %}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <a class="btn btn-default"
+                   href="{% url 'comment_approve' pk=comment.pk %}">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            {% endif %}
+        </div>
+        <strong>{{comment.author}}</strong>
+        <p>{{comment.text|linebreaksbr}}</p>
+    </div>
+
+{% empty %}
+    <p> No comments here yet :( </p>
+{% endfor %}
+
+{% endblock %}

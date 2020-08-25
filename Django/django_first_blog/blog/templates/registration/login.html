@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>username과 password가 일치하지 않습니다. 다시 로그인 하세요.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <!-- 부트스트랩에서 제공하는 클래스 -->
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>{{form.username.label_tag}}</td><td>{{form.username}}</td>
+            </tr>
+            <tr>
+                <td>{{form.password.label_tag}}</td><td>{{form.password}}</td>
+            </tr>
+        </table>
+        <!-- btn-lg = large 사이즈 -->
+        <input type="submit" value="로그인" class="btn btn-primary btn-lg" />
+        <!-- login 에러가 떳을때 next= 속성이 나오면 엉뚱한 페이지말고 그전 페이지로가게 해야함 -->
+        <!-- type="hidden" >> 화면상에는 보이지 않음, name="next" >> 이건 이렇게 맞춰줘야함, value="{{ next }} >> 파이썬 변수 -->
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+{% endblock %}

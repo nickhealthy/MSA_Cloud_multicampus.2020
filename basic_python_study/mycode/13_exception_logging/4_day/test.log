@@ -1,0 +1,5 @@
+2020-07-17 16:33:18,206 - DEBUG - Start of Program: logging_file_test.py:27 - Start of Program
+2020-07-17 16:33:18,206 - DEBUG - Hello debug 모드: logging_file_test.py:28 - Hello debug 모드
+2020-07-17 16:33:18,207 - INFO - Hello info 모드: logging_file_test.py:29 - Hello info 모드
+2020-07-17 16:33:18,207 - ERROR - Hello error 모드: logging_file_test.py:31 - Hello error 모드
+2020-07-17 16:33:18,207 - DEBUG - End of Program: logging_file_test.py:32 - End of Program

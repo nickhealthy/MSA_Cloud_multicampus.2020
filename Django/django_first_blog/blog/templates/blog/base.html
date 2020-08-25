@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Blog</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!-- google lobster font -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" type="text/css">
+    <!-- 개발자 정의 css -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}"> <!-- href 에 실제 css 파일경로를 적어줌 -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"> <!-- 'favicon.ico' 파일은 정적 파일이니까 static 설정 -->
+
+</head>
+<body>
+    <div class="page-header">
+        {% if user.is_authenticated %}
+        <!-- urls.py post_new key 값을 설정 -->
+            <a href="{% url 'post_new' %}" class="top-menu">
+                <!-- glyphicon 은 bootstrap 에서 지원하는 아이콘 -->
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <!-- {{user.username}} >> 현재 로그인한 유저네임을 뿌려줌 -->
+            <p class="top-menu">Hello, {{user.username}}
+                <!-- logout 링크를 달아주고 path 경로 지정 -->
+                <small>(<a href="{% url 'logout' %}?next={{request.path}}">Logout</a> )</small>
+            </p>
+         {% else %}
+             <a href="{% url 'login' %}" class="top-menu">
+                <span class="glyphicon glyphicon-lock"></span>
+             </a>
+         {% endif %}
+        <h1><a href="/">Django Blog</a></h1>
+    </div>
+
+    <!-- container 는 -->
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div> <!-- col-md-8 -->
+        </div> <!-- class=row -->
+    </div> <!-- class=container -->
+
+    {% comment "Optional note" %}
+        Server comment
+    {% endcomment %}
+
+    <!--html Client Comment-->
+</body>
+</html>
