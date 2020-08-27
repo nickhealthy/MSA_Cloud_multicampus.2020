@@ -1,3 +1,0 @@
-[submodule "django_playlist"]
-	path = django_playlist
-	url = https://github.com/multicampus-cloud/django_playlist
