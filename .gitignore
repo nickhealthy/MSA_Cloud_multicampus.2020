@@ -10,8 +10,7 @@ elasticsearch-7.9.0
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
-[venv]
-.venv
+venv
 pip-selfcheck.json
 
 ### vscode ###
