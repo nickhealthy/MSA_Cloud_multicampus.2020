@@ -1,0 +1,11 @@
+body > ytd-app > yt-activity-manager
+
+/html/body/ytd-app/yt-activity-manager
+
+//*[@id="prd101"]/div[1]
+#prd101 > div.img-bx
+
+
+#header
+//*[@id="header"]
+
